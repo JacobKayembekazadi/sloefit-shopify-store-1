@@ -47,6 +47,8 @@
       {{ settings.type_header_font | font_face: font_display: 'swap' }}
     {% endstyle %}
 
+    {% render 'css-variables' %}
+
     {{ 'theme.css' | asset_url | stylesheet_tag }}
 
     <script>
