@@ -1,0 +1,96 @@
+<section class="py-16 px-4">
+  <div class="container mx-auto">
+    <div class="text-center mb-12">
+      <p class="text-primary font-semibold mb-2">{{ section.settings.eyebrow }}</p>
+      <h2 class="text-3xl md:text-4xl font-bold">{{ section.settings.heading }}</h2>
+    </div>
+    
+    {% if section.settings.collection != blank %}
+      {% assign collection = collections[section.settings.collection] %}
+      <div class="grid md:grid-cols-3 gap-8">
+        {% for product in collection.products limit: section.settings.products_to_show %}
+          <div class="group relative overflow-hidden rounded-lg border border-border bg-card">
+            <a href="{{ product.url }}" class="block">
+              {% if product.featured_image %}
+                <div class="aspect-square overflow-hidden bg-muted">
+                  {{ product.featured_image | image_url: width: 600 | image_tag: class: 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300', loading: 'lazy' }}
+                </div>
+              {% else %}
+                <div class="aspect-square bg-muted flex items-center justify-center">
+                  <span class="text-muted-foreground">No image</span>
+                </div>
+              {% endif %}
+              
+              <div class="p-6">
+                <h3 class="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
+                  {{ product.title }}
+                </h3>
+                
+                {% if product.description != blank %}
+                  <p class="text-sm text-muted-foreground mb-4">
+                    {{ product.description | strip_html | truncate: 100 }}
+                  </p>
+                {% endif %}
+                
+                <div class="flex items-center justify-between">
+                  <span class="text-2xl font-bold">
+                    {{ product.price | money }}
+                  </span>
+                  {% if product.compare_at_price > product.price %}
+                    <span class="text-sm text-muted-foreground line-through">
+                      {{ product.compare_at_price | money }}
+                    </span>
+                  {% endif %}
+                </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="text-center py-12">
+        <p class="text-muted-foreground">Please select a collection in the theme editor.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "NEW TO SLOE FIT?"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Start Here"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "label": "Products to Show",
+      "default": 3
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products"
+    }
+  ]
+}
+{% endschema %}
+

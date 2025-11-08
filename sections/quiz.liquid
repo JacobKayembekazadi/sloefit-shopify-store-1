@@ -1,0 +1,126 @@
+<div class="py-12 px-4">
+  <div class="container mx-auto max-w-2xl">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4">Build Your Routine</h1>
+      <p class="text-muted-foreground">Answer 3 quick questions to get personalized recommendations</p>
+    </div>
+
+    <div class="p-8 rounded-lg border border-border bg-card" id="quiz-container">
+      {% comment %} Step 1 {% endcomment %}
+      <div class="quiz-step space-y-6" data-step="1">
+        <h2 class="text-2xl font-bold">What's your primary goal?</h2>
+        <div class="space-y-3">
+          <button class="quiz-option w-full inline-flex items-center justify-start whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground text-lg h-auto py-4 px-4" data-answer="strength">
+            Build Strength
+          </button>
+          <button class="quiz-option w-full inline-flex items-center justify-start whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground text-lg h-auto py-4 px-4" data-answer="fat-loss">
+            Lose Fat
+          </button>
+          <button class="quiz-option w-full inline-flex items-center justify-start whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground text-lg h-auto py-4 px-4" data-answer="maintain">
+            Stay Lean & Energized
+          </button>
+        </div>
+      </div>
+
+      {% comment %} Step 2 {% endcomment %}
+      <div class="quiz-step space-y-6 hidden" data-step="2">
+        <h2 class="text-2xl font-bold">How often do you train?</h2>
+        <div class="space-y-3">
+          <button class="quiz-option w-full inline-flex items-center justify-start whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground text-lg h-auto py-4 px-4" data-answer="2-3x">
+            2-3x per week
+          </button>
+          <button class="quiz-option w-full inline-flex items-center justify-start whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground text-lg h-auto py-4 px-4" data-answer="4-5x">
+            4-5x per week
+          </button>
+          <button class="quiz-option w-full inline-flex items-center justify-start whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground text-lg h-auto py-4 px-4" data-answer="6-7x">
+            6-7x per week
+          </button>
+        </div>
+      </div>
+
+      {% comment %} Step 3 - Results {% endcomment %}
+      <div class="quiz-step space-y-6 hidden" data-step="3">
+        <h2 class="text-2xl font-bold">Your recommendation is ready!</h2>
+        <div class="p-6 rounded-lg bg-primary/10 border border-primary">
+          <h3 class="text-xl font-bold mb-2" id="recommendation-title">
+            Recommended System
+          </h3>
+          <p class="text-muted-foreground mb-4">
+            Based on your goals, we recommend this stack to help you get results.
+          </p>
+          <a href="/pages/bundles" class="w-full inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8">
+            View Your Stack
+            <i data-lucide="arrow-right" class="ml-2 h-5 w-5"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    let currentStep = 1;
+    let answers = { goal: '', frequency: '' };
+
+    const steps = document.querySelectorAll('.quiz-step');
+    const allOptions = document.querySelectorAll('.quiz-option');
+
+    allOptions.forEach(option => {
+      option.addEventListener('click', function() {
+        const answer = this.dataset.answer;
+        const step = parseInt(this.closest('.quiz-step').dataset.step);
+        
+        // Store answer
+        if (step === 1) answers.goal = answer;
+        if (step === 2) answers.frequency = answer;
+        
+        // Move to next step
+        if (step < 3) {
+          steps[step - 1].classList.add('hidden');
+          steps[step].classList.remove('hidden');
+          currentStep = step + 1;
+        } else {
+          showResults();
+        }
+
+        if (step === 2) {
+          showResults();
+        }
+      });
+    });
+
+    function showResults() {
+      steps[1].classList.add('hidden');
+      steps[2].classList.remove('hidden');
+      
+      // Update recommendation based on goal
+      const titleEl = document.getElementById('recommendation-title');
+      if (answers.goal === 'strength') {
+        titleEl.textContent = 'Strength System';
+      } else if (answers.goal === 'fat-loss') {
+        titleEl.textContent = 'Shred System';
+      } else {
+        titleEl.textContent = 'Daily Base System';
+      }
+
+      // Reinitialize lucide icons
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Quiz",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Quiz"
+    }
+  ]
+}
+{% endschema %}
+

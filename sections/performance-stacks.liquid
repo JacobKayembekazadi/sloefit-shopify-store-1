@@ -1,0 +1,113 @@
+<section class="py-16 px-4">
+  <div class="container mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+      {{ section.settings.heading }}
+    </h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      {% for block in section.blocks %}
+        <a href="{{ block.settings.link }}" class="group p-6 rounded-lg border border-border bg-card hover:border-primary transition-colors">
+          <i data-lucide="{{ block.settings.icon }}" class="h-12 w-12 text-primary mb-4"></i>
+          <h3 class="text-2xl font-bold mb-2">{{ block.settings.title }}</h3>
+          <p class="text-muted-foreground mb-4">
+            {{ block.settings.description }}
+          </p>
+          <span class="text-primary font-semibold group-hover:underline">
+            {{ block.settings.link_text }}
+            <i data-lucide="arrow-right" class="inline h-4 w-4"></i>
+          </span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Performance Stacks",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Performance Stacks"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stack",
+      "name": "Stack",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Lucide Icon Name",
+          "default": "zap",
+          "info": "See https://lucide.dev for icon names"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Strength System"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Built for heavy lifters chasing load, power, and recovery."
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link Text",
+          "default": "View Stack"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL",
+          "default": "/pages/bundles"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Performance Stacks",
+      "blocks": [
+        {
+          "type": "stack",
+          "settings": {
+            "icon": "zap",
+            "title": "Strength System",
+            "description": "Built for heavy lifters chasing load, power, and recovery.",
+            "link_text": "View Stack",
+            "link": "/pages/bundles"
+          }
+        },
+        {
+          "type": "stack",
+          "settings": {
+            "icon": "target",
+            "title": "Shred System",
+            "description": "Cut clean, keep strength, stay focused.",
+            "link_text": "View Stack",
+            "link": "/pages/bundles"
+          }
+        },
+        {
+          "type": "stack",
+          "settings": {
+            "icon": "line-chart",
+            "title": "Daily Base System",
+            "description": "Foundation stack for energy, focus, and recovery.",
+            "link_text": "View Stack",
+            "link": "/pages/bundles"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

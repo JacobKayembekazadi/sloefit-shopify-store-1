@@ -1,20 +1,83 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
-      "settings": {}
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "heading_line1": "Your Entire Routine.",
+        "heading_highlight": "Engineered",
+        "heading_line2": "in One System.",
+        "subheading": "Sloe Fit combines clean performance supplements with an intelligent training app so your workouts, recovery, and habits stay locked in without guesswork.",
+        "primary_button_text": "Build My Routine",
+        "primary_button_link": "/pages/quiz",
+        "secondary_button_text": "Shop Founding Drop",
+        "secondary_button_link": "/collections/all"
+      }
+    },
+    "performance_stacks": {
+      "type": "performance-stacks",
+      "blocks": {
+        "stack_1": {
+          "type": "stack",
+          "settings": {
+            "icon": "zap",
+            "title": "Strength System",
+            "description": "Built for heavy lifters chasing load, power, and recovery.",
+            "link_text": "View Stack",
+            "link": "/pages/bundles"
+          }
+        },
+        "stack_2": {
+          "type": "stack",
+          "settings": {
+            "icon": "target",
+            "title": "Shred System",
+            "description": "Cut clean, keep strength, stay focused.",
+            "link_text": "View Stack",
+            "link": "/pages/bundles"
+          }
+        },
+        "stack_3": {
+          "type": "stack",
+          "settings": {
+            "icon": "line-chart",
+            "title": "Daily Base System",
+            "description": "Foundation stack for energy, focus, and recovery.",
+            "link_text": "View Stack",
+            "link": "/pages/bundles"
+          }
+        }
+      },
+      "block_order": [
+        "stack_1",
+        "stack_2",
+        "stack_3"
+      ],
+      "settings": {
+        "heading": "Performance Stacks"
+      }
+    },
+    "featured_products": {
+      "type": "featured-products",
+      "settings": {
+        "eyebrow": "NEW TO SLOE FIT?",
+        "heading": "Start Here",
+        "products_to_show": 3
+      }
+    },
+    "brand_story": {
+      "type": "brand-story",
+      "settings": {
+        "heading": "Built to Remove the Guesswork",
+        "description": "Sloe Fit was built to remove the stress and guesswork from training. Beginners get simple, guided plans they can trust, while serious lifters use the Sloe Fit app and supplement system to plan sessions, track progress, and stay locked in without overthinking.",
+        "button_text": "Read Our Story",
+        "button_link": "/pages/about"
+      }
     }
   },
   "order": [
-    "main"
+    "hero",
+    "performance_stacks",
+    "featured_products",
+    "brand_story"
   ]
 }

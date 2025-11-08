@@ -1,0 +1,85 @@
+<section class="relative py-20 px-4">
+  <div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10"></div>
+  <div class="container mx-auto relative z-10">
+    <div class="max-w-3xl mx-auto text-center space-y-6">
+      <h1 class="text-5xl md:text-7xl font-bold leading-tight">
+        {{ section.settings.heading_line1 }}{" "}
+        <span class="text-primary">{{ section.settings.heading_highlight }}</span> {{ section.settings.heading_line2 }}
+      </h1>
+      <p class="text-xl text-muted-foreground">
+        {{ section.settings.subheading }}
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+        <a href="{{ section.settings.primary_button_link }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8 text-lg">
+          {{ section.settings.primary_button_text }}
+          <i data-lucide="arrow-right" class="ml-2 h-5 w-5"></i>
+        </a>
+        <a href="{{ section.settings.secondary_button_link }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8 text-lg">
+          {{ section.settings.secondary_button_text }}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_line1",
+      "label": "Heading Line 1",
+      "default": "Your Entire Routine."
+    },
+    {
+      "type": "text",
+      "id": "heading_highlight",
+      "label": "Heading Highlight (Colored)",
+      "default": "Engineered"
+    },
+    {
+      "type": "text",
+      "id": "heading_line2",
+      "label": "Heading Line 2",
+      "default": "in One System."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Sloe Fit combines clean performance supplements with an intelligent training app so your workouts, recovery, and habits stay locked in without guesswork."
+    },
+    {
+      "type": "text",
+      "id": "primary_button_text",
+      "label": "Primary Button Text",
+      "default": "Build My Routine"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary Button Link",
+      "default": "/pages/quiz"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Secondary Button Text",
+      "default": "Shop Founding Drop"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary Button Link",
+      "default": "/collections/all"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Section"
+    }
+  ]
+}
+{% endschema %}
+

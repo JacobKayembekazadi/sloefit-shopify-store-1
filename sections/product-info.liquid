@@ -1,0 +1,130 @@
+<div class="py-12 px-4">
+  <div class="container mx-auto">
+    <div class="grid md:grid-cols-2 gap-12">
+      {% comment %} Product Image {% endcomment %}
+      <div class="aspect-square rounded-lg overflow-hidden bg-card border border-border">
+        {% if product.featured_image %}
+          {{ product.featured_image | image_url: width: 800 | image_tag: class: 'w-full h-full object-cover', loading: 'eager' }}
+        {% else %}
+          <div class="w-full h-full flex items-center justify-center">
+            <span class="text-muted-foreground">No image</span>
+          </div>
+        {% endif %}
+      </div>
+
+      {% comment %} Product Info {% endcomment %}
+      <div class="space-y-6">
+        <div>
+          <h1 class="text-4xl font-bold mb-4">{{ product.title }}</h1>
+          <div class="text-3xl font-bold text-primary mb-6">
+            <span class="product-price">{{ product.selected_or_first_available_variant.price | money }}</span>
+          </div>
+        </div>
+
+        {% if product.description != blank %}
+          <div class="prose prose-invert max-w-none">
+            <p class="text-muted-foreground">{{ product.description }}</p>
+          </div>
+        {% endif %}
+
+        {% comment %} Product Form {% endcomment %}
+        {% form 'product', product, id: 'product-form', class: 'space-y-6' %}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+          {% comment %} Variant Selection {% endcomment %}
+          {% unless product.has_only_default_variant %}
+            <div class="space-y-4">
+              {% for option in product.options_with_values %}
+                <div>
+                  <label class="block text-sm font-medium mb-2">{{ option.name }}</label>
+                  <div class="flex gap-2 flex-wrap">
+                    {% for value in option.values %}
+                      <input
+                        type="radio"
+                        name="options[{{ option.name | escape }}]"
+                        value="{{ value | escape }}"
+                        id="option-{{ option.position }}-{{ forloop.index }}"
+                        {% if option.selected_value == value %}checked{% endif %}
+                        class="sr-only variant-radio"
+                      >
+                      <label
+                        for="option-{{ option.position }}-{{ forloop.index }}"
+                        class="variant-label inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 cursor-pointer"
+                      >
+                        {{ value }}
+                      </label>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% endunless %}
+
+          <button
+            type="submit"
+            name="add"
+            class="w-full inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8"
+            {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}
+          >
+            <span class="add-to-cart-text">
+              {% if product.selected_or_first_available_variant.available %}
+                Add to Cart
+              {% else %}
+                Out of Stock
+              {% endif %}
+            </span>
+          </button>
+        {% endform %}
+
+        {% comment %} Product Details {% endcomment %}
+        <div class="space-y-4 pt-6 border-t border-border">
+          <h3 class="font-bold text-lg">Product Details</h3>
+          <div class="space-y-2 text-sm text-muted-foreground">
+            <p>• Clean, disciplined formula</p>
+            <p>• Stack-friendly with other Sloe Fit products</p>
+            <p>• Made for serious lifters</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .variant-radio:checked + .variant-label {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-color: hsl(var(--primary));
+  }
+</style>
+
+<script>
+  // Update price when variant changes
+  const variantRadios = document.querySelectorAll('.variant-radio');
+  variantRadios.forEach(radio => {
+    radio.addEventListener('change', function() {
+      // Get form data
+      const form = document.querySelector('#product-form');
+      const formData = new FormData(form);
+      
+      // Get selected variant id
+      const variantId = formData.get('id');
+      
+      // You would typically fetch variant data here
+      // For now, we'll rely on Shopify's built-in variant selection
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Product Information",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Product Information"
+    }
+  ]
+}
+{% endschema %}
+
