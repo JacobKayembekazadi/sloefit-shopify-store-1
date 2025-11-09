@@ -1,0 +1,26 @@
+<div class="py-12 px-4">
+  <div class="container mx-auto">
+    <h1 class="text-4xl font-bold mb-8 text-center">Collections</h1>
+    <div class="grid md:grid-cols-3 gap-8">
+      {% for collection in collections %}
+        <a href="{{ collection.url }}" class="group border border-border rounded-lg overflow-hidden bg-card hover:border-primary transition-colors">
+          {% if collection.image %}
+            {{ collection.image | image_url: width: 600 | image_tag: class: 'w-full aspect-square object-cover', loading: 'lazy' }}
+          {% endif %}
+          <div class="p-6">
+            <h3 class="font-bold text-lg mb-2 group-hover:text-primary transition-colors">{{ collection.title }}</h3>
+            <p class="text-muted-foreground">{{ collection.products_count }} products</p>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collections",
+  "settings": []
+}
+{% endschema %}
+
