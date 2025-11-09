@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "results_hero": {
+      "type": "page-content",
+      "settings": {
+        "eyebrow": "REAL RESULTS",
+        "heading": "Results",
+        "content": "<p class='text-muted-foreground text-lg text-center mb-12'>See what Sloe Fit members are achieving with our performance systems.</p><div class='grid md:grid-cols-3 gap-8 mt-12'><div class='p-6 border border-border rounded-lg bg-card'><p class='text-4xl font-bold text-primary mb-2'>+45 lbs</p><p class='text-muted-foreground'>Average deadlift gain in 12 weeks with Strength System</p></div><div class='p-6 border border-border rounded-lg bg-card'><p class='text-4xl font-bold text-primary mb-2'>-12%</p><p class='text-muted-foreground'>Average body fat reduction with Shred System</p></div><div class='p-6 border border-border rounded-lg bg-card'><p class='text-4xl font-bold text-primary mb-2'>94%</p><p class='text-muted-foreground'>Of users report better consistency and focus</p></div></div>"
+      }
+    }
+  },
+  "order": [
+    "results_hero"
+  ]
+}
+

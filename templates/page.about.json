@@ -1,0 +1,51 @@
+{
+  "sections": {
+    "about_story": {
+      "type": "about-story",
+      "settings": {
+        "eyebrow": "OUR STORY",
+        "heading": "About Sloe Fit",
+        "content": "<p class='text-muted-foreground text-lg mb-6'>Sloe Fit was built to remove the stress and guesswork from training.</p><p class='text-muted-foreground mb-6'>We saw too many lifters overwhelmed by conflicting advice, complicated protocols, and supplement companies making empty promises. So we created a system that's clean, disciplined, and actually works.</p><p class='text-muted-foreground mb-6'>Our supplements are formulated with transparent ingredients at clinical doses. No proprietary blends. No inflated claims. Just what you need to support your training.</p><p class='text-muted-foreground mb-6'>The Sloe Fit app connects your supplements to your workouts, giving you a complete performance system. Beginners get simple, guided plans they can trust. Serious lifters get the tools to plan sessions, track progress, and stay locked in without overthinking.</p><p class='text-muted-foreground'>We're not here to sell you miracles. We're here to help you build strength, stay consistent, and get results that last.</p>"
+      }
+    },
+    "brand_values": {
+      "type": "app-features",
+      "blocks": {
+        "value_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "flask-conical",
+            "title": "Transparent Formulas",
+            "description": "Every ingredient listed with exact doses. No proprietary blends, no hidden fillers."
+          }
+        },
+        "value_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield-check",
+            "title": "Quality First",
+            "description": "Third-party tested for purity and potency. Made in certified facilities."
+          }
+        },
+        "value_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "target",
+            "title": "Results-Driven",
+            "description": "No hype, no gimmicks. Just formulas backed by research and real lifter feedback."
+          }
+        }
+      },
+      "block_order": ["value_1", "value_2", "value_3"],
+      "settings": {
+        "heading": "Our Values",
+        "description": "What we stand for as a brand."
+      }
+    }
+  },
+  "order": [
+    "about_story",
+    "brand_values"
+  ]
+}
+

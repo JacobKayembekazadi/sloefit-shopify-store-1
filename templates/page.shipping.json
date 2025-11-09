@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "shipping_content": {
+      "type": "page-content",
+      "settings": {
+        "eyebrow": "POLICIES",
+        "heading": "Shipping & Returns",
+        "content": "<h2 class='text-2xl font-bold mb-4'>Shipping</h2><p class='text-muted-foreground mb-6'>All orders ship within 1-2 business days via USPS or UPS. Delivery typically takes 3-5 business days within the United States. International shipping is available to select countries—check at checkout for availability and rates.</p><p class='text-muted-foreground mb-8'>Free shipping on all orders over $75.</p><h2 class='text-2xl font-bold mb-4'>Returns & Refunds</h2><p class='text-muted-foreground mb-6'>We offer a 30-day satisfaction guarantee. If you're not happy with your first Sloe Fit order, contact us within 30 days of delivery for a full refund.</p><p class='text-muted-foreground mb-6'>To initiate a return, email <a href='mailto:support@sloefit.com' class='text-primary hover:underline'>support@sloefit.com</a> with your order number and reason for return.</p><h2 class='text-2xl font-bold mb-4'>Damaged or Defective Products</h2><p class='text-muted-foreground'>If your order arrives damaged or defective, contact us immediately with photos. We'll send a replacement at no charge.</p>"
+      }
+    }
+  },
+  "order": [
+    "shipping_content"
+  ]
+}
+

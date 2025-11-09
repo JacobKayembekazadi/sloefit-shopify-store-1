@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "contact_header": {
+      "type": "page-content",
+      "settings": {
+        "eyebrow": "GET IN TOUCH",
+        "heading": "Contact Us",
+        "content": "<p class='text-muted-foreground text-lg text-center mb-8'>Have questions? We're here to help.</p>"
+      }
+    }
+  },
+  "order": [
+    "contact_header"
+  ]
+}
+

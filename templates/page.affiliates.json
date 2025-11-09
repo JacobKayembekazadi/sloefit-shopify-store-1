@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "affiliates_hero": {
+      "type": "page-content",
+      "settings": {
+        "eyebrow": "PARTNERSHIP",
+        "heading": "Affiliate Program",
+        "content": "<p class='text-muted-foreground text-lg text-center mb-12'>Join the Sloe Fit affiliate program and earn commission promoting products you believe in.</p><div class='max-w-2xl mx-auto'><div class='p-8 border border-border rounded-lg bg-card mb-8'><h3 class='text-2xl font-bold mb-4'>Program Benefits</h3><ul class='space-y-3 text-muted-foreground'><li class='flex items-start gap-3'><span class='text-primary'>✓</span> Earn 15% commission on all sales</li><li class='flex items-start gap-3'><span class='text-primary'>✓</span> 60-day cookie duration</li><li class='flex items-start gap-3'><span class='text-primary'>✓</span> Access to promotional materials</li><li class='flex items-start gap-3'><span class='text-primary'>✓</span> Monthly newsletter with tips</li><li class='flex items-start gap-3'><span class='text-primary'>✓</span> Priority support from our team</li></ul></div><div class='text-center'><a href='#apply' class='inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8'>Apply Now</a></div></div>"
+      }
+    }
+  },
+  "order": [
+    "affiliates_hero"
+  ]
+}
+

@@ -1,0 +1,41 @@
+<section class="py-16 px-4">
+  <div class="container mx-auto max-w-4xl text-center">
+    <p class="text-primary font-semibold mb-2">{{ section.settings.eyebrow }}</p>
+    <h1 class="text-5xl md:text-6xl font-bold mb-6">{{ section.settings.heading }}</h1>
+    <p class="text-xl text-muted-foreground mb-8">
+      {{ section.settings.description }}
+    </p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bundles Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "PERFORMANCE STACKS"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Bundles & Stacks"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Engineered systems for serious lifters. Each stack combines our supplements with training protocols to help you build strength, cut fat, or stay locked in daily."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bundles Hero"
+    }
+  ]
+}
+{% endschema %}
+

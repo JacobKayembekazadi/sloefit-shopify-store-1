@@ -1,0 +1,145 @@
+{
+  "sections": {
+    "bundles_hero": {
+      "type": "bundles-hero",
+      "settings": {
+        "eyebrow": "PERFORMANCE STACKS",
+        "heading": "Bundles & Stacks",
+        "description": "Engineered systems for serious lifters. Each stack combines our supplements with training protocols to help you build strength, cut fat, or stay locked in daily."
+      }
+    },
+    "strength_stack": {
+      "type": "stack-detail",
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "item": "5g Creatine Monohydrate per serving"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "item": "Pre-workout with clean energy blend"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "item": "Post-workout recovery formula"
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "item": "12-week progressive overload training plan"
+          }
+        }
+      },
+      "block_order": ["item_1", "item_2", "item_3", "item_4"],
+      "settings": {
+        "eyebrow": "PERFORMANCE STACK",
+        "heading": "Strength System",
+        "description": "Built for heavy lifters chasing progressive overload. Combines creatine, pre-workout, and recovery support with a structured training protocol designed to add serious weight to your lifts.",
+        "icon": "zap",
+        "image_position": "right",
+        "background_color": "background",
+        "primary_button_text": "Shop Strength Stack",
+        "primary_button_link": "/collections/strength-system",
+        "secondary_button_text": "View Training Plan",
+        "secondary_button_link": "/pages/learn"
+      }
+    },
+    "shred_stack": {
+      "type": "stack-detail",
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "item": "Thermogenic fat burner with clean stimulants"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "item": "BCAA formula to preserve muscle during cut"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "item": "Appetite management support"
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "item": "8-week cutting protocol with macro guidance"
+          }
+        }
+      },
+      "block_order": ["item_1", "item_2", "item_3", "item_4"],
+      "settings": {
+        "eyebrow": "CUTTING STACK",
+        "heading": "Shred System",
+        "description": "Cut fat while maintaining strength. This stack supports a caloric deficit with energy, focus, and muscle preservation so you can stay lean without losing your edge in the gym.",
+        "icon": "target",
+        "image_position": "left",
+        "background_color": "card",
+        "primary_button_text": "Shop Shred Stack",
+        "primary_button_link": "/collections/shred-system",
+        "secondary_button_text": "See Results",
+        "secondary_button_link": "/pages/results"
+      }
+    },
+    "daily_base_stack": {
+      "type": "stack-detail",
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "item": "Essential vitamins and minerals"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "item": "Omega-3 for joint and heart health"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "item": "Electrolyte hydration support"
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "item": "Daily habit tracker in Sloe Fit app"
+          }
+        }
+      },
+      "block_order": ["item_1", "item_2", "item_3", "item_4"],
+      "settings": {
+        "eyebrow": "FOUNDATION STACK",
+        "heading": "Daily Base System",
+        "description": "The foundation for consistent performance. Cover your nutritional bases with essential vitamins, minerals, and recovery support to keep energy, focus, and recovery dialed in every day.",
+        "icon": "line-chart",
+        "image_position": "right",
+        "background_color": "background",
+        "primary_button_text": "Shop Daily Base",
+        "primary_button_link": "/collections/daily-base",
+        "secondary_button_text": "Learn About Ingredients",
+        "secondary_button_link": "/pages/learn"
+      }
+    }
+  },
+  "order": [
+    "bundles_hero",
+    "strength_stack",
+    "shred_stack",
+    "daily_base_stack"
+  ]
+}
+

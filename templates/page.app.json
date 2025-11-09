@@ -1,0 +1,77 @@
+{
+  "sections": {
+    "app_hero": {
+      "type": "app-hero",
+      "settings": {
+        "eyebrow": "SLOE FIT APP",
+        "heading": "Your Training & Supplement System in One Place",
+        "description": "Track workouts, log habits, and manage your supplement stack. The Sloe Fit app syncs your training with your nutrition so you stay locked in without guesswork.",
+        "primary_button_text": "Download App",
+        "primary_button_link": "#download"
+      }
+    },
+    "app_features": {
+      "type": "app-features",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "dumbbell",
+            "title": "Training Plans",
+            "description": "Progressive programs designed by coaches, tracked rep-by-rep with auto-progression built in."
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "pill",
+            "title": "Stack Manager",
+            "description": "Set reminders for your supplements. Know exactly what to take and when for optimal results."
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "check-circle-2",
+            "title": "Habit Tracking",
+            "description": "Build consistency with daily check-ins for sleep, hydration, stress, and recovery."
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "icon": "trending-up",
+            "title": "Progress Charts",
+            "description": "Visualize strength gains, body composition, and training volume over time."
+          }
+        },
+        "feature_5": {
+          "type": "feature",
+          "settings": {
+            "icon": "calendar",
+            "title": "Session History",
+            "description": "Review past workouts, see what worked, and adjust your approach based on data."
+          }
+        },
+        "feature_6": {
+          "type": "feature",
+          "settings": {
+            "icon": "zap",
+            "title": "Quick Logging",
+            "description": "Log sets in seconds. No complex UI, no distractions—just fast, efficient tracking."
+          }
+        }
+      },
+      "block_order": ["feature_1", "feature_2", "feature_3", "feature_4", "feature_5", "feature_6"],
+      "settings": {
+        "heading": "Everything You Need",
+        "description": "Built for serious lifters who want structure without complexity."
+      }
+    }
+  },
+  "order": [
+    "app_hero",
+    "app_features"
+  ]
+}
+

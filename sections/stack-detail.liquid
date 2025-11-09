@@ -1,0 +1,162 @@
+<section class="py-16 px-4 {% if section.settings.background_color == 'card' %}bg-card{% endif %}">
+  <div class="container mx-auto">
+    <div class="grid md:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+      {% if section.settings.image_position == 'left' %}
+        <div class="order-1">
+          {% if section.settings.image != blank %}
+            {{ section.settings.image | image_url: width: 600 | image_tag: class: 'w-full rounded-lg', loading: 'lazy' }}
+          {% else %}
+            <div class="aspect-square bg-muted rounded-lg flex items-center justify-center">
+              <i data-lucide="{{ section.settings.icon }}" class="h-24 w-24 text-primary"></i>
+            </div>
+          {% endif %}
+        </div>
+        <div class="order-2">
+      {% else %}
+        <div class="order-2 md:order-1">
+      {% endif %}
+          <p class="text-primary font-semibold mb-2">{{ section.settings.eyebrow }}</p>
+          <h2 class="text-4xl font-bold mb-6">{{ section.settings.heading }}</h2>
+          <div class="prose prose-invert max-w-none mb-8">
+            <p class="text-muted-foreground text-lg">{{ section.settings.description }}</p>
+          </div>
+          
+          <div class="space-y-4 mb-8">
+            <h3 class="font-bold text-lg">What's Included:</h3>
+            <ul class="space-y-2">
+              {% for block in section.blocks %}
+                <li class="flex items-start gap-3">
+                  <i data-lucide="check-circle" class="h-6 w-6 text-primary flex-shrink-0 mt-0.5"></i>
+                  <span class="text-muted-foreground">{{ block.settings.item }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4">
+            {% if section.settings.primary_button_text != blank %}
+              <a href="{{ section.settings.primary_button_link }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8">
+                {{ section.settings.primary_button_text }}
+              </a>
+            {% endif %}
+            {% if section.settings.secondary_button_text != blank %}
+              <a href="{{ section.settings.secondary_button_link }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
+                {{ section.settings.secondary_button_text }}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      {% if section.settings.image_position == 'right' %}
+        <div class="order-1 md:order-2">
+          {% if section.settings.image != blank %}
+            {{ section.settings.image | image_url: width: 600 | image_tag: class: 'w-full rounded-lg', loading: 'lazy' }}
+          {% else %}
+            <div class="aspect-square bg-muted rounded-lg flex items-center justify-center">
+              <i data-lucide="{{ section.settings.icon }}" class="h-24 w-24 text-primary"></i>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Stack Detail",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "PERFORMANCE STACK"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Strength System"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Built for heavy lifters chasing progressive overload. Combines creatine, pre-workout, and recovery support with a structured training protocol."
+    },
+    {
+      "type": "text",
+      "id": "icon",
+      "label": "Lucide Icon Name",
+      "default": "zap",
+      "info": "Used if no image is uploaded"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Stack Image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Position",
+      "options": [
+        {"value": "left", "label": "Left"},
+        {"value": "right", "label": "Right"}
+      ],
+      "default": "right"
+    },
+    {
+      "type": "select",
+      "id": "background_color",
+      "label": "Background",
+      "options": [
+        {"value": "background", "label": "Default"},
+        {"value": "card", "label": "Card"}
+      ],
+      "default": "background"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_text",
+      "label": "Primary Button Text",
+      "default": "Shop Stack"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Secondary Button Text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Included Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "item",
+          "label": "Item Description",
+          "default": "Item included in this stack"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Stack Detail"
+    }
+  ]
+}
+{% endschema %}
+
