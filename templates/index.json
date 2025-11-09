@@ -103,7 +103,7 @@
     }
   },
   "order": [
-    "hero",
+    "home-hero",
     "performance_stacks",
     "app_cta",
     "starter_essentials",
