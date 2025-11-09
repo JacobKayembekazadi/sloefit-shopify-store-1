@@ -1,0 +1,51 @@
+<section class="py-16 px-4 bg-card">
+  <div class="container mx-auto">
+    <div class="text-center mb-12">
+      <p class="text-primary font-semibold mb-2">{{ section.settings.eyebrow }}</p>
+      <h2 class="text-3xl md:text-4xl font-bold">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      {% for block in section.blocks %}
+        <div class="p-6 border border-border rounded-lg bg-background text-center">
+          <p class="text-4xl font-bold text-primary mb-2">{{ block.settings.stat }}</p>
+          <p class="text-muted-foreground">{{ block.settings.label }}</p>
+        </div>
+      {% endfor %}
+    </div>
+    {% if section.settings.button_text != blank %}
+      <div class="text-center mt-10">
+        <a href="{{ section.settings.button_link }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8">
+          {{ section.settings.button_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Results Preview",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "REAL RESULTS" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Results" },
+    { "type": "text", "id": "button_text", "label": "Button text", "default": "See All Results" },
+    { "type": "url", "id": "button_link", "label": "Button link", "default": "/pages/results" }
+  ],
+  "blocks": [
+    { "type": "stat", "name": "Stat", "settings": [
+      { "type": "text", "id": "stat", "label": "Stat", "default": "+45 lbs" },
+      { "type": "text", "id": "label", "label": "Label", "default": "Average deadlift gain in 12 weeks" }
+    ]}
+  ],
+  "presets": [{
+    "name": "Results Preview",
+    "blocks": [
+      { "type": "stat", "settings": { "stat": "+45 lbs", "label": "Average deadlift gain in 12 weeks" } },
+      { "type": "stat", "settings": { "stat": "-12%", "label": "Average body fat reduction" } },
+      { "type": "stat", "settings": { "stat": "94%", "label": "Report better consistency & focus" } }
+    ]
+  }]
+}
+{% endschema %}
+
+

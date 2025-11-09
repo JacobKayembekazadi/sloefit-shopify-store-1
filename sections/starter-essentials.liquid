@@ -1,0 +1,59 @@
+<section class="py-16 px-4">
+  <div class="container mx-auto">
+    <div class="text-center mb-12">
+      <p class="text-primary font-semibold mb-2">{{ section.settings.eyebrow }}</p>
+      <h2 class="text-3xl md:text-4xl font-bold">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+      {% assign picks = 'product_1,product_2,product_3' | split: ',' %}
+      {% for key in picks %}
+        {% assign chosen = section.settings[key] %}
+        <div class="group relative overflow-hidden rounded-lg border border-border bg-card">
+          {% if chosen %}
+            {% assign p = all_products[chosen] %}
+            <a href="{{ p.url }}" class="block">
+              {% if p.featured_image %}
+                <div class="aspect-square overflow-hidden bg-muted">
+                  {{ p.featured_image | image_url: width: 600 | image_tag: class: 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300', loading: 'lazy' }}
+                </div>
+              {% else %}
+                <div class="aspect-square bg-muted flex items-center justify-center">
+                  <span class="text-muted-foreground">No image</span>
+                </div>
+              {% endif %}
+              <div class="p-6">
+                <h3 class="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">{{ p.title }}</h3>
+                <div class="flex items-center justify-between">
+                  <span class="text-2xl font-bold">{{ p.price | money }}</span>
+                  {% if p.compare_at_price > p.price %}
+                    <span class="text-sm text-muted-foreground line-through">{{ p.compare_at_price | money }}</span>
+                  {% endif %}
+                </div>
+              </div>
+            </a>
+          {% else %}
+            <div class="aspect-square bg-muted flex items-center justify-center">
+              <span class="text-muted-foreground">Select a product</span>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Starter Essentials",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "NEW TO SLOE FIT?" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Start Here" },
+    { "type": "product", "id": "product_1", "label": "Product 1 (e.g., Shredder)" },
+    { "type": "product", "id": "product_2", "label": "Product 2 (e.g., Daily Base)" },
+    { "type": "product", "id": "product_3", "label": "Product 3 (e.g., Charge)" }
+  ],
+  "presets": [{ "name": "Starter Essentials" }]
+}
+{% endschema %}
+
+

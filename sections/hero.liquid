@@ -1,22 +1,40 @@
-<section class="relative py-20 px-4">
+<section class="{% if section.settings.dark_background %}bg-card{% endif %} relative py-20 px-4">
   <div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10"></div>
   <div class="container mx-auto relative z-10">
-    <div class="max-w-3xl mx-auto text-center space-y-6">
-      <h1 class="text-5xl md:text-7xl font-bold leading-tight">
-        {{ section.settings.heading_line1 }} 
-        <span class="text-primary">{{ section.settings.heading_highlight }}</span> {{ section.settings.heading_line2 }}
-      </h1>
-      <p class="text-xl text-muted-foreground">
-        {{ section.settings.subheading }}
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-        <a href="{{ section.settings.primary_button_link }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8 text-lg">
-          {{ section.settings.primary_button_text }}
-          <i data-lucide="arrow-right" class="ml-2 h-5 w-5"></i>
-        </a>
-        <a href="{{ section.settings.secondary_button_link }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8 text-lg">
-          {{ section.settings.secondary_button_text }}
-        </a>
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="text-center md:text-left space-y-6">
+        <h1 class="text-5xl md:text-7xl font-bold leading-tight">
+          {{ section.settings.heading_line1 }} 
+          <span class="text-primary">{{ section.settings.heading_highlight }}</span> {{ section.settings.heading_line2 }}
+        </h1>
+        <p class="text-xl text-muted-foreground">
+          {{ section.settings.subheading }}
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 md:justify-start justify-center pt-2">
+          <a href="{{ section.settings.primary_button_link }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8 text-lg">
+            {{ section.settings.primary_button_text }}
+            <i data-lucide="arrow-right" class="ml-2 h-5 w-5"></i>
+          </a>
+          <a href="{{ section.settings.secondary_button_link }}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8 text-lg">
+            {{ section.settings.secondary_button_text }}
+          </a>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4 max-w-lg mx-auto md:mx-0">
+        {% if section.settings.image_left != blank %}
+          {{ section.settings.image_left | image_url: width: 600 | image_tag: class: 'w-full h-full object-cover rounded-lg', loading: 'lazy' }}
+        {% else %}
+          <div class="aspect-[4/5] bg-muted rounded-lg flex items-center justify-center">
+            <span class="text-muted-foreground">Product Visual</span>
+          </div>
+        {% endif %}
+        {% if section.settings.image_right != blank %}
+          {{ section.settings.image_right | image_url: width: 600 | image_tag: class: 'w-full h-full object-cover rounded-lg', loading: 'lazy' }}
+        {% else %}
+          <div class="aspect-[4/5] bg-muted rounded-lg flex items-center justify-center">
+            <span class="text-muted-foreground">App Mockup</span>
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>
@@ -26,6 +44,12 @@
 {
   "name": "Hero Section",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "dark_background",
+      "label": "Use dark background",
+      "default": true
+    },
     {
       "type": "text",
       "id": "heading_line1",
@@ -73,6 +97,16 @@
       "id": "secondary_button_link",
       "label": "Secondary Button Link",
       "default": "/collections/all"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_left",
+      "label": "Left Image (Product)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_right",
+      "label": "Right Image (App Mockup)"
     }
   ],
   "presets": [

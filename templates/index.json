@@ -10,7 +10,8 @@
         "primary_button_text": "Build My Routine",
         "primary_button_link": "/pages/quiz",
         "secondary_button_text": "Shop Founding Drop",
-        "secondary_button_link": "/collections/all"
+        "secondary_button_link": "/collections/all",
+        "dark_background": true
       }
     },
     "performance_stacks": {
@@ -56,12 +57,21 @@
         "heading": "Performance Stacks"
       }
     },
-    "featured_products": {
-      "type": "featured-products",
+    "app_cta": {
+      "type": "app-cta",
+      "settings": {
+        "eyebrow": "SLOE FIT APP",
+        "heading": "The Sloe Fit App",
+        "description": "Keep your training, supplements, and habits synced. Personalized plans, habit tracking, and stack reminders in one place.",
+        "button_text": "See How It Works",
+        "button_link": "/pages/app"
+      }
+    },
+    "starter_essentials": {
+      "type": "starter-essentials",
       "settings": {
         "eyebrow": "NEW TO SLOE FIT?",
-        "heading": "Start Here",
-        "products_to_show": 3
+        "heading": "Start Here"
       }
     },
     "brand_story": {
@@ -72,12 +82,33 @@
         "button_text": "Read Our Story",
         "button_link": "/pages/about"
       }
+    },
+    "newsletter": {
+      "type": "newsletter-signup",
+      "settings": {
+        "heading": "Lock in with Sloe Fit",
+        "description": "Get members-only offers, training systems, and early access to new formulas before they go public.",
+        "placeholder": "Your email",
+        "button_text": "Join the List"
+      }
+    },
+    "results_preview": {
+      "type": "results-preview",
+      "settings": {
+        "eyebrow": "REAL RESULTS",
+        "heading": "Results",
+        "button_text": "See All Results",
+        "button_link": "/pages/results"
+      }
     }
   },
   "order": [
     "hero",
     "performance_stacks",
-    "featured_products",
-    "brand_story"
+    "app_cta",
+    "starter_essentials",
+    "brand_story",
+    "newsletter",
+    "results_preview"
   ]
 }
