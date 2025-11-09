@@ -42,7 +42,7 @@
 
 {% schema %}
 {
-  "name": "Hero Section",
+  "name": "Home Hero",
   "settings": [
     {
       "type": "checkbox",
@@ -109,9 +109,12 @@
   ],
   "presets": [
     {
-      "name": "Hero Section"
+      "name": "Home Hero"
     }
-  ]
+  ],
+  "enabled_on": {
+    "templates": ["index"]
+  }
 }
 {% endschema %}
 
