@@ -29,6 +29,8 @@
         "stack_1": {
           "type": "stack",
           "settings": {
+            "image": "shopify://shop_images/Sloe_shoulders_3.jpg",
+            "image_alt": "",
             "icon": "zap",
             "title": "Strength System",
             "description": "Built for heavy lifters chasing load, power, and recovery.",
@@ -39,6 +41,7 @@
         "stack_2": {
           "type": "stack",
           "settings": {
+            "image_alt": "",
             "icon": "target",
             "title": "Shred System",
             "description": "Cut clean, keep strength, stay focused.",
@@ -49,6 +52,7 @@
         "stack_3": {
           "type": "stack",
           "settings": {
+            "image_alt": "",
             "icon": "line-chart",
             "title": "Daily Base System",
             "description": "Foundation stack for energy, focus, and recovery.",
