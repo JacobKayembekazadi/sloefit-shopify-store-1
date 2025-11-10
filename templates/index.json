@@ -20,7 +20,9 @@
         "primary_button_text": "Build My Routine",
         "primary_button_link": "/pages/quiz",
         "secondary_button_text": "Shop Founding Drop",
-        "secondary_button_link": "/collections/all"
+        "secondary_button_link": "/collections/all",
+        "image_left": "shopify://shop_images/sloe_shoulders_2.jpg",
+        "image_right": "shopify://shop_images/Sloe_shoulders_3.jpg"
       }
     },
     "performance_stacks": {
