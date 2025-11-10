@@ -1,8 +1,18 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "hero",
       "settings": {
+        "dark_background": true,
         "heading_line1": "Your Entire Routine.",
         "heading_highlight": "Engineered",
         "heading_line2": "in One System.",
@@ -10,8 +20,7 @@
         "primary_button_text": "Build My Routine",
         "primary_button_link": "/pages/quiz",
         "secondary_button_text": "Shop Founding Drop",
-        "secondary_button_link": "/collections/all",
-        "dark_background": true
+        "secondary_button_link": "/collections/all"
       }
     },
     "performance_stacks": {
@@ -71,7 +80,10 @@
       "type": "starter-essentials",
       "settings": {
         "eyebrow": "NEW TO SLOE FIT?",
-        "heading": "Start Here"
+        "heading": "Start Here",
+        "product_1": "creatine-monohydrate",
+        "product_2": "nitric-shock-pre-workout-powder-fruit-punch",
+        "product_3": "creatine-monohydrate-5"
       }
     },
     "brand_story": {
