@@ -10,8 +10,17 @@
 {% endcomment %}
 <header class="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
   <div class="container mx-auto px-4 h-16 flex items-center justify-between">
+    {% comment %} Mobile Menu Button {% endcomment %}
+    <button 
+      class="md:hidden inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+      aria-label="Toggle menu"
+      data-mobile-menu-toggle
+    >
+      <i data-lucide="menu" class="h-5 w-5" aria-hidden="true"></i>
+    </button>
+
     {% comment %} Logo {% endcomment %}
-    <a href="/" class="flex items-center space-x-2">
+    <a href="/" class="flex items-center space-x-2" aria-label="{{ shop.name }} home">
       <div class="text-2xl font-bold">
         <span class="text-primary">SLOE</span>
         <span class="text-foreground"> FIT</span>
@@ -19,7 +28,7 @@
     </a>
 
     {% comment %} Desktop Navigation {% endcomment %}
-    <nav class="hidden md:flex items-center space-x-6 text-sm">
+    <nav class="hidden md:flex items-center space-x-6 text-sm" aria-label="Main navigation">
       <a href="/collections/all" class="text-muted-foreground hover:text-foreground transition-colors">
         Shop All
       </a>
@@ -51,21 +60,236 @@
 
     {% comment %} Right Icons {% endcomment %}
     <div class="flex items-center space-x-3">
-      <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10" onclick="document.querySelector('[data-search-modal]').classList.toggle('hidden')">
-        <i data-lucide="search" class="h-5 w-5"></i>
+      <button 
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+        aria-label="Search"
+        data-search-toggle
+      >
+        <i data-lucide="search" class="h-5 w-5" aria-hidden="true"></i>
       </button>
-      <a href="/account" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10">
-        <i data-lucide="user" class="h-5 w-5"></i>
+      <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10" aria-label="Account">
+        <i data-lucide="user" class="h-5 w-5" aria-hidden="true"></i>
       </a>
-      <a href="/cart" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 relative">
-        <i data-lucide="shopping-bag" class="h-5 w-5"></i>
-        <span class="cart-count-bubble absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center" {% if cart.item_count == 0 %}style="display: none;"{% endif %}>
+      <button 
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10 relative"
+        aria-label="Cart"
+        data-cart-toggle
+      >
+        <i data-lucide="shopping-bag" class="h-5 w-5" aria-hidden="true"></i>
+        <span id="cart-count-bubble" class="cart-count-bubble absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center {% if cart.item_count == 0 %}hidden{% endif %}" aria-hidden="true">
           {{ cart.item_count }}
         </span>
-      </a>
+        <span class="sr-only"><span id="cart-count-text">{{ cart.item_count }}</span> item{% if cart.item_count != 1 %}s{% endif %} in cart</span>
+      </button>
     </div>
   </div>
 </header>
+
+{% comment %} Mobile Menu {% endcomment %}
+<div id="mobile-menu" class="fixed inset-0 z-50 md:hidden transform translate-x-full transition-transform duration-300 ease-in-out">
+  <div class="absolute inset-0 bg-background/80 backdrop-blur-sm" data-mobile-menu-close></div>
+  <div class="absolute right-0 top-0 h-full w-80 bg-background border-l border-border shadow-lg overflow-y-auto">
+    <div class="flex items-center justify-between p-4 border-b border-border">
+      <h2 class="text-xl font-bold">Menu</h2>
+      <button 
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+        aria-label="Close menu"
+        data-mobile-menu-close
+      >
+        <i data-lucide="x" class="h-5 w-5" aria-hidden="true"></i>
+      </button>
+    </div>
+    <nav class="p-4 space-y-2" aria-label="Mobile navigation">
+      <a href="/collections/all" class="block py-3 px-4 text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors">
+        Shop All
+      </a>
+      <a href="/pages/bundles" class="block py-3 px-4 text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors">
+        Bundles & Stacks
+      </a>
+      <a href="/pages/app" class="block py-3 px-4 text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors">
+        Sloe Fit App
+      </a>
+      <a href="/pages/quiz" class="block py-3 px-4 text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors">
+        Quiz
+      </a>
+      <a href="/pages/results" class="block py-3 px-4 text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors">
+        Results
+      </a>
+      <a href="/pages/learn" class="block py-3 px-4 text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors">
+        Learn
+      </a>
+      <a href="/pages/affiliates" class="block py-3 px-4 text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors">
+        Affiliates
+      </a>
+      <a href="/pages/about" class="block py-3 px-4 text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors">
+        About
+      </a>
+      <a href="/pages/contact" class="block py-3 px-4 text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors">
+        Contact
+      </a>
+    </nav>
+  </div>
+</div>
+
+{% comment %} Search Modal {% endcomment %}
+<div id="search-modal" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-background/80 backdrop-blur-sm" data-search-close></div>
+  <div class="absolute inset-0 flex items-start justify-center pt-20 px-4">
+    <div class="w-full max-w-2xl bg-background border border-border rounded-lg shadow-lg p-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-bold">Search</h2>
+        <button 
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+          aria-label="Close search"
+          data-search-close
+        >
+          <i data-lucide="x" class="h-5 w-5" aria-hidden="true"></i>
+        </button>
+      </div>
+      <form action="{{ routes.search_url }}" method="get" class="mb-4">
+        <div class="flex gap-2">
+          <input
+            type="search"
+            name="q"
+            placeholder="Search products, pages..."
+            class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            autocomplete="off"
+            data-search-input
+          >
+          <button
+            type="submit"
+            class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4"
+          >
+            Search
+          </button>
+        </div>
+      </form>
+      <div id="search-results" class="hidden"></div>
+    </div>
+  </div>
+</div>
+
+{% comment %} Cart Drawer {% endcomment %}
+<div id="cart-drawer" class="fixed inset-0 z-50 hidden">
+  <div class="absolute inset-0 bg-background/80 backdrop-blur-sm" data-cart-close></div>
+  <div class="absolute right-0 top-0 h-full w-full max-w-md bg-background border-l border-border shadow-lg overflow-y-auto flex flex-col">
+    <div class="flex items-center justify-between p-4 border-b border-border">
+      <h2 class="text-xl font-bold">Cart</h2>
+      <button 
+        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
+        aria-label="Close cart"
+        data-cart-close
+      >
+        <i data-lucide="x" class="h-5 w-5" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div id="cart-drawer-content" class="flex-1 overflow-y-auto p-4">
+      {% render 'cart-drawer-content' %}
+    </div>
+    <div class="border-t border-border p-4 space-y-4">
+      <div class="flex justify-between text-lg font-bold">
+        <span>Total:</span>
+        <span id="cart-drawer-total">{{ cart.total_price | money }}</span>
+      </div>
+      <a
+        href="{{ routes.cart_url }}"
+        class="block w-full text-center inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8"
+      >
+        View Cart
+      </a>
+      <a
+        href="{{ routes.cart_url }}"
+        class="block w-full text-center inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8"
+      >
+        Checkout
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // Mobile Menu
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuToggle = document.querySelector('[data-mobile-menu-toggle]');
+    const mobileMenuClose = document.querySelectorAll('[data-mobile-menu-close]');
+    
+    function openMobileMenu() {
+      mobileMenu.classList.remove('translate-x-full');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeMobileMenu() {
+      mobileMenu.classList.add('translate-x-full');
+      document.body.style.overflow = '';
+    }
+    
+    if (mobileMenuToggle) {
+      mobileMenuToggle.addEventListener('click', openMobileMenu);
+    }
+    
+    mobileMenuClose.forEach(btn => {
+      btn.addEventListener('click', closeMobileMenu);
+    });
+    
+    // Search Modal
+    const searchModal = document.getElementById('search-modal');
+    const searchToggle = document.querySelector('[data-search-toggle]');
+    const searchClose = document.querySelectorAll('[data-search-close]');
+    const searchInput = document.querySelector('[data-search-input]');
+    
+    function openSearch() {
+      searchModal.classList.remove('hidden');
+      if (searchInput) searchInput.focus();
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeSearch() {
+      searchModal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    
+    if (searchToggle) {
+      searchToggle.addEventListener('click', openSearch);
+    }
+    
+    searchClose.forEach(btn => {
+      btn.addEventListener('click', closeSearch);
+    });
+    
+    // Cart Drawer
+    const cartDrawer = document.getElementById('cart-drawer');
+    const cartToggle = document.querySelector('[data-cart-toggle]');
+    const cartClose = document.querySelectorAll('[data-cart-close]');
+    
+    function openCart() {
+      cartDrawer.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeCart() {
+      cartDrawer.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    
+    if (cartToggle) {
+      cartToggle.addEventListener('click', openCart);
+    }
+    
+    cartClose.forEach(btn => {
+      btn.addEventListener('click', closeCart);
+    });
+    
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeMobileMenu();
+        closeSearch();
+        closeCart();
+      }
+    });
+  })();
+</script>
 
 {% schema %}
 {

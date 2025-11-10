@@ -45,10 +45,10 @@
           <h3 class="text-xl font-bold mb-2" id="recommendation-title">
             Recommended System
           </h3>
-          <p class="text-muted-foreground mb-4">
+          <p class="text-muted-foreground mb-4" id="recommendation-description">
             Based on your goals, we recommend this stack to help you get results.
           </p>
-          <a href="/pages/bundles" class="w-full inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8">
+          <a href="/pages/bundles" id="recommendation-link" class="w-full inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8">
             View Your Stack
             <i data-lucide="arrow-right" class="ml-2 h-5 w-5"></i>
           </a>
@@ -96,12 +96,24 @@
       
       // Update recommendation based on goal
       const titleEl = document.getElementById('recommendation-title');
+      const descEl = document.getElementById('recommendation-description');
+      const linkEl = document.getElementById('recommendation-link');
+      
       if (answers.goal === 'strength') {
         titleEl.textContent = 'Strength System';
+        descEl.textContent = 'Built for heavy lifters chasing progressive overload. Combines creatine, pre-workout, and recovery support with a structured training protocol.';
+        linkEl.href = '/collections/strength-system';
+        linkEl.textContent = 'Shop Strength System';
       } else if (answers.goal === 'fat-loss') {
         titleEl.textContent = 'Shred System';
+        descEl.textContent = 'Cut fat while maintaining strength. This stack supports a caloric deficit with energy, focus, and muscle preservation.';
+        linkEl.href = '/collections/shred-system';
+        linkEl.textContent = 'Shop Shred System';
       } else {
         titleEl.textContent = 'Daily Base System';
+        descEl.textContent = 'The foundation for consistent performance. Cover your nutritional bases with essential vitamins, minerals, and recovery support.';
+        linkEl.href = '/collections/daily-base';
+        linkEl.textContent = 'Shop Daily Base';
       }
 
       // Reinitialize lucide icons

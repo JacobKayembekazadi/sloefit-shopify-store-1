@@ -1,3 +1,7 @@
+{%- liquid
+  assign bg_color = settings.background_color | default: '#FFFFFF'
+  assign text_color = settings.foreground_color | default: '#1A1A1A'
+-%}
 <style>
   :root {
     --background: 0 0% 100%;

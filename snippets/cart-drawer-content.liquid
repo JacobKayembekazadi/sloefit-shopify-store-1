@@ -1,0 +1,65 @@
+{% if cart.item_count > 0 %}
+  <div class="space-y-4">
+    {% for item in cart.items %}
+      <div class="flex gap-4 p-4 border border-border rounded-lg bg-card" data-cart-item data-item-key="{{ item.key }}">
+        {% if item.image %}
+          <a href="{{ item.product.url }}" class="flex-shrink-0">
+            {{ item.image | image_url: width: 100 | image_tag: class: 'w-20 h-20 object-cover rounded', loading: 'lazy', alt: item.product.title }}
+          </a>
+        {% endif %}
+        <div class="flex-1 min-w-0">
+          <a href="{{ item.product.url }}" class="font-bold hover:text-primary transition-colors">
+            {{ item.product.title }}
+          </a>
+          {% unless item.product.has_only_default_variant %}
+            <p class="text-sm text-muted-foreground">{{ item.variant.title }}</p>
+          {% endunless %}
+          <p class="font-bold mt-1">{{ item.final_price | money }}</p>
+          <div class="flex items-center gap-2 mt-2">
+            <button
+              type="button"
+              class="w-8 h-8 flex items-center justify-center border border-border rounded hover:bg-accent transition-colors"
+              data-cart-item-decrease
+              data-item-key="{{ item.key }}"
+              aria-label="Decrease quantity"
+            >
+              <i data-lucide="minus" class="h-4 w-4" aria-hidden="true"></i>
+            </button>
+            <span class="w-8 text-center" data-cart-item-quantity>{{ item.quantity }}</span>
+            <button
+              type="button"
+              class="w-8 h-8 flex items-center justify-center border border-border rounded hover:bg-accent transition-colors"
+              data-cart-item-increase
+              data-item-key="{{ item.key }}"
+              aria-label="Increase quantity"
+            >
+              <i data-lucide="plus" class="h-4 w-4" aria-hidden="true"></i>
+            </button>
+            <button
+              type="button"
+              class="ml-auto text-sm text-muted-foreground hover:text-destructive transition-colors"
+              data-cart-item-remove
+              data-item-key="{{ item.key }}"
+              aria-label="Remove item"
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="flex flex-col items-center justify-center py-12 text-center">
+    <p class="text-muted-foreground mb-4">Your cart is empty</p>
+    <a
+      href="/collections/all"
+      class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8"
+    >
+      Continue Shopping
+    </a>
+  </div>
+{% endif %}
+
+
+

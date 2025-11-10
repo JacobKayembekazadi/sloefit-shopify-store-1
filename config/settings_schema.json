@@ -1,42 +1,48 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Skeleton",
-    "theme_version": "0.1.0",
-    "theme_author": "Shopify",
+    "theme_name": "Sloe Fit",
+    "theme_version": "1.0.0",
+    "theme_author": "Sloe Fit",
     "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
     "theme_support_url": "https://support.shopify.com/"
   },
   {
-    "name": "t:general.typography",
+    "name": "Typography",
     "settings": [
       {
         "type": "header",
-        "content": "t:general.fonts"
+        "content": "Fonts"
       },
       {
         "type": "font_picker",
-        "id": "type_primary_font",
-        "default": "work_sans_n4",
-        "label": "t:general.primary"
+        "id": "type_body_font",
+        "default": "assistant_n4",
+        "label": "Body font"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_header_font",
+        "default": "assistant_n4",
+        "label": "Heading font"
       }
     ]
   },
   {
-    "name": "t:general.layout",
+    "name": "Layout",
     "settings": [
       {
         "type": "select",
         "id": "max_page_width",
-        "label": "t:labels.page_width",
+        "label": "Page width",
         "options": [
           {
             "value": "90rem",
-            "label": "t:options.page_width.narrow"
+            "label": "Narrow"
           },
           {
             "value": "110rem",
-            "label": "t:options.page_width.wide"
+            "label": "Wide"
           }
         ],
         "default": "90rem"
@@ -48,35 +54,200 @@
         "max": 100,
         "step": 1,
         "unit": "px",
-        "label": "t:labels.page_margin",
+        "label": "Page margin",
         "default": 20
       }
     ]
   },
   {
-    "name": "t:general.colors",
+    "name": "Colors",
     "settings": [
+      {
+        "type": "header",
+        "content": "Base Colors"
+      },
       {
         "type": "color",
         "id": "background_color",
         "default": "#FFFFFF",
-        "label": "t:labels.background"
+        "label": "Background color"
       },
       {
         "type": "color",
         "id": "foreground_color",
-        "default": "#333333",
-        "label": "t:labels.foreground"
+        "default": "#1A1A1A",
+        "label": "Text color"
       },
       {
-        "type": "range",
-        "id": "input_corner_radius",
-        "min": 0,
-        "max": 10,
-        "step": 1,
-        "unit": "px",
-        "label": "t:labels.input_corner_radius",
-        "default": 4
+        "type": "color",
+        "id": "primary_color",
+        "default": "#22C55E",
+        "label": "Primary color"
+      },
+      {
+        "type": "color",
+        "id": "primary_foreground_color",
+        "default": "#FFFFFF",
+        "label": "Primary text color"
+      },
+      {
+        "type": "header",
+        "content": "Header & Footer"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_announcement_bar",
+        "label": "Show announcement bar",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "header_background_color",
+        "default": "#FFFFFF",
+        "label": "Header background color"
+      },
+      {
+        "type": "color",
+        "id": "footer_background_color",
+        "default": "#F9FAFB",
+        "label": "Footer background color"
+      }
+    ]
+  },
+  {
+    "name": "Product Page",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_product_image_gallery",
+        "label": "Show image gallery with thumbnails",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_wishlist_button",
+        "label": "Show wishlist button",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "product_image_zoom",
+        "label": "Image zoom behavior",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "hover",
+            "label": "Hover zoom"
+          },
+          {
+            "value": "click",
+            "label": "Click to zoom"
+          }
+        ],
+        "default": "hover"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_cart_drawer",
+        "label": "Enable cart drawer",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_ajax_cart",
+        "label": "Enable AJAX cart updates",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "cart_drawer_position",
+        "label": "Cart drawer position",
+        "options": [
+          {
+            "value": "right",
+            "label": "Right"
+          },
+          {
+            "value": "left",
+            "label": "Left"
+          }
+        ],
+        "default": "right"
+      }
+    ]
+  },
+  {
+    "name": "Search",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_search_modal",
+        "label": "Enable search modal",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_predictive_search",
+        "label": "Enable predictive search",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social Links"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram_url",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "url",
+        "id": "social_youtube_url",
+        "label": "YouTube URL"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook_url",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "url",
+        "id": "social_twitter_url",
+        "label": "Twitter URL"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok_url",
+        "label": "TikTok URL"
+      }
+    ]
+  },
+  {
+    "name": "Wishlist",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_wishlist",
+        "label": "Enable wishlist functionality",
+        "default": true
+      },
+      {
+        "type": "page",
+        "id": "wishlist_page",
+        "label": "Wishlist page"
       }
     ]
   }

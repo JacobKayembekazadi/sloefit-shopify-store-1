@@ -1,13 +1,47 @@
 <div class="py-12 px-4">
   <div class="container mx-auto">
     <div class="grid md:grid-cols-2 gap-12">
-      {% comment %} Product Image {% endcomment %}
-      <div class="aspect-square rounded-lg overflow-hidden bg-card border border-border">
-        {% if product.featured_image %}
-          {{ product.featured_image | image_url: width: 800 | image_tag: class: 'w-full h-full object-cover', loading: 'eager' }}
-        {% else %}
-          <div class="w-full h-full flex items-center justify-center">
-            <span class="text-muted-foreground">No image</span>
+      {% comment %} Product Image Gallery {% endcomment %}
+      <div class="space-y-4">
+        {% comment %} Main Image {% endcomment %}
+        <div class="aspect-square rounded-lg overflow-hidden bg-card border border-border relative group">
+          {% if product.featured_image %}
+            <img
+              id="product-main-image"
+              src="{{ product.featured_image | image_url: width: 800 }}"
+              alt="{{ product.featured_image.alt | default: product.title }}"
+              class="w-full h-full object-cover cursor-zoom-in"
+              loading="eager"
+              data-main-image
+            >
+            <button
+              class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-background/80 backdrop-blur-sm rounded-full hover:bg-background transition-colors opacity-0 group-hover:opacity-100"
+              aria-label="View full image"
+              data-image-zoom
+            >
+              <i data-lucide="maximize" class="h-5 w-5" aria-hidden="true"></i>
+            </button>
+          {% else %}
+            <div class="w-full h-full flex items-center justify-center">
+              <span class="text-muted-foreground">No image</span>
+            </div>
+          {% endif %}
+        </div>
+
+        {% comment %} Thumbnail Gallery {% endcomment %}
+        {% if product.images.size > 1 %}
+          <div class="flex gap-2 overflow-x-auto pb-2">
+            {% for image in product.images %}
+              <button
+                type="button"
+                class="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 border-transparent hover:border-primary transition-colors {% if forloop.first %}border-primary{% endif %}"
+                data-thumbnail
+                data-image-index="{{ forloop.index0 }}"
+                aria-label="View image {{ forloop.index }}"
+              >
+                {{ image | image_url: width: 100 | image_tag: class: 'w-full h-full object-cover', loading: 'lazy', alt: image.alt | default: product.title }}
+              </button>
+            {% endfor %}
           </div>
         {% endif %}
       </div>
@@ -15,46 +49,54 @@
       {% comment %} Product Info {% endcomment %}
       <div class="space-y-6">
         <div>
-          <h1 class="text-4xl font-bold mb-4">{{ product.title }}</h1>
+          <div class="flex items-start justify-between mb-4">
+            <h1 class="text-4xl font-bold">{{ product.title }}</h1>
+            <button
+              type="button"
+              class="w-10 h-10 flex items-center justify-center rounded-full border border-border hover:bg-accent transition-colors wishlist-button"
+              data-product-id="{{ product.id }}"
+              aria-label="Add to wishlist"
+              data-wishlist-toggle
+            >
+              <i data-lucide="heart" class="h-5 w-5" aria-hidden="true"></i>
+            </button>
+          </div>
           <div class="text-3xl font-bold text-primary mb-6">
-            <span class="product-price">{{ product.selected_or_first_available_variant.price | money }}</span>
+            <span id="product-price">{{ product.selected_or_first_available_variant.price | money }}</span>
+            <span id="product-compare-price" class="text-lg text-muted-foreground line-through ml-2 {% unless product.compare_at_price > product.selected_or_first_available_variant.price %}hidden{% endunless %}">
+              {{ product.compare_at_price | money }}
+            </span>
           </div>
         </div>
 
         {% if product.description != blank %}
           <div class="prose prose-invert max-w-none">
-            <p class="text-muted-foreground">{{ product.description }}</p>
+            <div class="text-muted-foreground">{{ product.description }}</div>
           </div>
         {% endif %}
 
         {% comment %} Product Form {% endcomment %}
         {% form 'product', product, id: 'product-form', class: 'space-y-6' %}
-          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          <input type="hidden" name="id" id="variant-id" value="{{ product.selected_or_first_available_variant.id }}">
 
           {% comment %} Variant Selection {% endcomment %}
           {% unless product.has_only_default_variant %}
             <div class="space-y-4">
               {% for option in product.options_with_values %}
                 <div>
-                  <label class="block text-sm font-medium mb-2">{{ option.name }}</label>
-                  <div class="flex gap-2 flex-wrap">
+                  <label class="block text-sm font-medium mb-2" for="option-{{ option.position }}">{{ option.name }}</label>
+                  <select
+                    name="options[{{ option.name | escape }}]"
+                    id="option-{{ option.position }}"
+                    class="variant-select w-full px-3 py-2 border border-input bg-background rounded-md text-foreground"
+                    data-option-position="{{ option.position }}"
+                  >
                     {% for value in option.values %}
-                      <input
-                        type="radio"
-                        name="options[{{ option.name | escape }}]"
-                        value="{{ value | escape }}"
-                        id="option-{{ option.position }}-{{ forloop.index }}"
-                        {% if option.selected_value == value %}checked{% endif %}
-                        class="sr-only variant-radio"
-                      >
-                      <label
-                        for="option-{{ option.position }}-{{ forloop.index }}"
-                        class="variant-label inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 cursor-pointer"
-                      >
+                      <option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>
                         {{ value }}
-                      </label>
+                      </option>
                     {% endfor %}
-                  </div>
+                  </select>
                 </div>
               {% endfor %}
             </div>
@@ -63,14 +105,15 @@
           <button
             type="submit"
             name="add"
+            id="add-to-cart-button"
             class="w-full inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8"
             {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}
           >
-            <span class="add-to-cart-text">
+            <span id="add-to-cart-text">
               {% if product.selected_or_first_available_variant.available %}
-                Add to Cart
+                {{ 'products.product.add_to_cart' | t }}
               {% else %}
-                Out of Stock
+                {{ 'products.product.sold_out' | t }}
               {% endif %}
             </span>
           </button>
@@ -90,30 +133,111 @@
   </div>
 </div>
 
-<style>
-  .variant-radio:checked + .variant-label {
-    background-color: hsl(var(--primary));
-    color: hsl(var(--primary-foreground));
-    border-color: hsl(var(--primary));
-  }
-</style>
-
 <script>
-  // Update price when variant changes
-  const variantRadios = document.querySelectorAll('.variant-radio');
-  variantRadios.forEach(radio => {
-    radio.addEventListener('change', function() {
-      // Get form data
-      const form = document.querySelector('#product-form');
-      const formData = new FormData(form);
+  (function() {
+    const variantSelects = document.querySelectorAll('.variant-select');
+    const variantIdInput = document.getElementById('variant-id');
+    const priceElement = document.getElementById('product-price');
+    const addToCartButton = document.getElementById('add-to-cart-button');
+    const addToCartText = document.getElementById('add-to-cart-text');
+    
+    const productImages = [
+      {% for image in product.images %}
+        {
+          src: {{ image | image_url: width: 800 | json }},
+          alt: {{ image.alt | default: product.title | json }},
+          variantIds: [{% for variant in product.variants %}{% if variant.featured_image == image %}{{ variant.id }}{% unless forloop.last %},{% endunless %}{% endif %}{% endfor %}]
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ];
+
+    const variants = [
+      {% for variant in product.variants %}
+        {
+          id: {{ variant.id }},
+          price: {{ variant.price }},
+          priceFormatted: {{ variant.price | money | json }},
+          compareAtPrice: {{ variant.compare_at_price | default: 0 }},
+          compareAtPriceFormatted: {% if variant.compare_at_price %}{{ variant.compare_at_price | money | json }}{% else %}null{% endif %},
+          available: {{ variant.available | json }},
+          image: {% if variant.featured_image %}{{ variant.featured_image | image_url: width: 800 | json }}{% else %}null{% endif %},
+          option1: {{ variant.option1 | json }},
+          option2: {{ variant.option2 | json }},
+          option3: {{ variant.option3 | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ];
+    
+    function updateVariant() {
+      const selectedOptions = {};
+      variantSelects.forEach(select => {
+        const position = select.dataset.optionPosition;
+        selectedOptions['option' + position] = select.value;
+      });
       
-      // Get selected variant id
-      const variantId = formData.get('id');
+      const selectedVariant = variants.find(variant => {
+        return (!selectedOptions.option1 || variant.option1 === selectedOptions.option1) &&
+               (!selectedOptions.option2 || variant.option2 === selectedOptions.option2) &&
+               (!selectedOptions.option3 || variant.option3 === selectedOptions.option3);
+      });
       
-      // You would typically fetch variant data here
-      // For now, we'll rely on Shopify's built-in variant selection
+      if (selectedVariant) {
+        variantIdInput.value = selectedVariant.id;
+        priceElement.textContent = selectedVariant.priceFormatted;
+        
+        // Update compare at price
+        const comparePriceElement = document.getElementById('product-compare-price');
+        if (comparePriceElement) {
+          if (selectedVariant.compareAtPrice > selectedVariant.price) {
+            comparePriceElement.textContent = selectedVariant.compareAtPriceFormatted;
+            comparePriceElement.classList.remove('hidden');
+          } else {
+            comparePriceElement.classList.add('hidden');
+          }
+        }
+        
+        // Update main image if variant has specific image
+        if (selectedVariant.image) {
+          const mainImage = document.getElementById('product-main-image');
+          if (mainImage) {
+            mainImage.src = selectedVariant.image;
+            mainImage.alt = '{{ product.title | escape }}';
+          }
+        }
+        
+        addToCartButton.disabled = !selectedVariant.available;
+        addToCartText.textContent = selectedVariant.available 
+          ? '{{ 'products.product.add_to_cart' | t }}'
+          : '{{ 'products.product.sold_out' | t }}';
+      }
+    }
+    
+    variantSelects.forEach(select => {
+      select.addEventListener('change', updateVariant);
     });
-  });
+
+    // Thumbnail gallery functionality
+    const thumbnails = document.querySelectorAll('[data-thumbnail]');
+    const mainImage = document.getElementById('product-main-image');
+    
+    thumbnails.forEach(thumbnail => {
+      thumbnail.addEventListener('click', function() {
+        const imageIndex = parseInt(this.dataset.imageIndex);
+        if (productImages[imageIndex] && mainImage) {
+          mainImage.src = productImages[imageIndex].src;
+          mainImage.alt = productImages[imageIndex].alt;
+          
+          // Update active thumbnail
+          thumbnails.forEach(thumb => {
+            thumb.classList.remove('border-primary');
+            thumb.classList.add('border-transparent');
+          });
+          this.classList.remove('border-transparent');
+          this.classList.add('border-primary');
+        }
+      });
+    });
+  })();
 </script>
 
 {% schema %}

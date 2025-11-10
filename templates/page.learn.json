@@ -5,12 +5,65 @@
       "settings": {
         "eyebrow": "KNOWLEDGE BASE",
         "heading": "Learn",
-        "content": "<p class='text-muted-foreground text-lg text-center mb-12'>Guides, protocols, and evidence-based info to help you train smarter.</p><div class='grid md:grid-cols-2 gap-8 mt-12'><div class='p-6 border border-border rounded-lg bg-card hover:border-primary transition-colors'><h3 class='text-xl font-bold mb-3'>Progressive Overload Guide</h3><p class='text-muted-foreground mb-4'>Learn how to systematically increase training volume for consistent strength gains.</p><a href='#' class='text-primary font-semibold hover:underline'>Read Guide →</a></div><div class='p-6 border border-border rounded-lg bg-card hover:border-primary transition-colors'><h3 class='text-xl font-bold mb-3'>Supplement Timing</h3><p class='text-muted-foreground mb-4'>When to take creatine, pre-workout, and other supplements for maximum effect.</p><a href='#' class='text-primary font-semibold hover:underline'>Read Guide →</a></div><div class='p-6 border border-border rounded-lg bg-card hover:border-primary transition-colors'><h3 class='text-xl font-bold mb-3'>Cutting While Maintaining Strength</h3><p class='text-muted-foreground mb-4'>How to lose fat without sacrificing your lifts or muscle mass.</p><a href='#' class='text-primary font-semibold hover:underline'>Read Guide →</a></div><div class='p-6 border border-border rounded-lg bg-card hover:border-primary transition-colors'><h3 class='text-xl font-bold mb-3'>Recovery Protocols</h3><p class='text-muted-foreground mb-4'>Sleep, nutrition, and habits that support heavy training volume.</p><a href='#' class='text-primary font-semibold hover:underline'>Read Guide →</a></div></div>"
+        "content": "<p class='text-muted-foreground text-lg text-center mb-12'>Guides, protocols, and evidence-based info to help you train smarter.</p>"
+      }
+    },
+    "learn_guides": {
+      "type": "learn-guides",
+      "blocks": {
+        "guide_1": {
+          "type": "guide",
+          "settings": {
+            "title": "Progressive Overload Guide",
+            "description": "Learn how to systematically increase training volume for consistent strength gains.",
+            "link_text": "Read Guide",
+            "link": "/blogs/training"
+          }
+        },
+        "guide_2": {
+          "type": "guide",
+          "settings": {
+            "title": "Supplement Timing",
+            "description": "When to take creatine, pre-workout, and other supplements for maximum effect.",
+            "link_text": "Read Guide",
+            "link": "/blogs/nutrition"
+          }
+        },
+        "guide_3": {
+          "type": "guide",
+          "settings": {
+            "title": "Cutting While Maintaining Strength",
+            "description": "How to lose fat without sacrificing your lifts or muscle mass.",
+            "link_text": "Read Guide",
+            "link": "/blogs/training"
+          }
+        },
+        "guide_4": {
+          "type": "guide",
+          "settings": {
+            "title": "Recovery Protocols",
+            "description": "Sleep, nutrition, and habits that support heavy training volume.",
+            "link_text": "Read Guide",
+            "link": "/blogs/recovery"
+          }
+        }
+      },
+      "block_order": [
+        "guide_1",
+        "guide_2",
+        "guide_3",
+        "guide_4"
+      ],
+      "settings": {
+        "eyebrow": "TRAINING GUIDES",
+        "heading": "Training Guides",
+        "description": "Evidence-based guides to help you train smarter and get better results."
       }
     }
   },
   "order": [
-    "learn_hero"
+    "learn_hero",
+    "learn_guides"
   ]
 }
 

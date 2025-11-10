@@ -93,9 +93,17 @@
       }
     </script>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
+    {{ 'cart.js' | asset_url | script_tag }}
+    {{ 'wishlist.js' | asset_url | script_tag }}
+
+    {% comment %} Load Lucide icons library for icon-based sections {% endcomment %}
+    <script src="https://unpkg.com/lucide@latest" defer></script>
     <script>
-      lucide.createIcons();
+      document.addEventListener('DOMContentLoaded', function() {
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+      });
     </script>
   </body>
 </html>

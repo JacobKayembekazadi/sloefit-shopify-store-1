@@ -67,7 +67,22 @@
       "add_to_cart": "Add to cart",
       "sold_out": "Sold out",
       "unavailable": "Unavailable",
-      "value_unavailable": "{{ option_value }} is unavailable"
+      "value_unavailable": "{{ option_value }} is unavailable",
+      "tax_included": "Tax included. Shipping calculated at checkout.",
+      "off": "off",
+      "no_image": "No image available",
+      "description": "Description",
+      "sku": "SKU",
+      "vendor": "Vendor",
+      "tags": "Tags",
+      "quantity": {
+        "label": "Quantity",
+        "increase": "Increase quantity",
+        "decrease": "Decrease quantity"
+      },
+      "in_stock": "In stock",
+      "low_stock": "Only {{ quantity }} left in stock",
+      "backorder": "Available on backorder"
     }
   }
 }

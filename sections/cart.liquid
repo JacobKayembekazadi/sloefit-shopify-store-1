@@ -2,33 +2,103 @@
   <div class="container mx-auto max-w-4xl">
     <h1 class="text-4xl font-bold mb-8">Cart</h1>
     {% if cart.item_count > 0 %}
-      <form action="{{ routes.cart_url }}" method="post">
+      <form action="{{ routes.cart_update_url }}" method="post" id="cart-form">
         <div class="space-y-4 mb-8">
           {% for item in cart.items %}
             <div class="flex gap-4 p-4 border border-border rounded-lg bg-card">
-              {% if item.image %}
-                {{ item.image | image_url: width: 200 | image_tag: class: 'w-24 h-24 object-cover rounded', loading: 'lazy' }}
-              {% endif %}
+              <a href="{{ item.product.url }}" class="flex-shrink-0">
+                {% if item.image %}
+                  {{ item.image | image_url: width: 200 | image_tag: class: 'w-24 h-24 object-cover rounded', loading: 'lazy', alt: item.product.title }}
+                {% endif %}
+              </a>
               <div class="flex-1">
-                <h3 class="font-bold">{{ item.product.title }}</h3>
-                <p class="text-sm text-muted-foreground">{{ item.variant.title }}</p>
+                <a href="{{ item.product.url }}" class="font-bold hover:text-primary transition-colors">
+                  {{ item.product.title }}
+                </a>
+                {% unless item.product.has_only_default_variant %}
+                  <p class="text-sm text-muted-foreground">{{ item.variant.title }}</p>
+                {% endunless %}
                 <p class="font-bold mt-2">{{ item.final_price | money }}</p>
+                <button
+                  type="button"
+                  class="mt-2 text-sm text-muted-foreground hover:text-destructive transition-colors"
+                  onclick="removeCartItem('{{ item.key }}')"
+                >
+                  Remove
+                </button>
               </div>
-              <div>
-                <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" class="w-20 px-2 py-1 border border-border rounded">
+              <div class="flex flex-col items-end">
+                <label for="quantity-{{ forloop.index }}" class="text-sm text-muted-foreground mb-1">Qty</label>
+                <input
+                  type="number"
+                  id="quantity-{{ forloop.index }}"
+                  name="updates[]"
+                  value="{{ item.quantity }}"
+                  min="0"
+                  data-item-key="{{ item.key }}"
+                  class="w-20 px-2 py-1 border border-border rounded text-center"
+                >
               </div>
             </div>
           {% endfor %}
         </div>
-        <div class="text-right">
-          <p class="text-2xl font-bold mb-4">Total: {{ cart.total_price | money }}</p>
-          <button type="submit" name="checkout" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8">
-            Checkout
-          </button>
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-8 border-t border-border">
+          <a
+            href="/collections/all"
+            class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8"
+          >
+            Continue Shopping
+          </a>
+          <div class="flex flex-col items-end">
+            <p class="text-2xl font-bold mb-4">Total: {{ cart.total_price | money }}</p>
+            <div class="flex gap-4">
+              <button
+                type="submit"
+                name="update"
+                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-11 px-8"
+              >
+                Update Cart
+              </button>
+              <button
+                type="submit"
+                name="checkout"
+                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8"
+              >
+                Checkout
+              </button>
+            </div>
+          </div>
         </div>
       </form>
+      
+      <script>
+        function removeCartItem(itemKey) {
+          if (confirm('Remove this item from cart?')) {
+            fetch('{{ routes.cart_change_url }}', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                id: itemKey,
+                quantity: 0
+              })
+            }).then(() => {
+              window.location.reload();
+            });
+          }
+        }
+      </script>
     {% else %}
-      <p class="text-center text-muted-foreground py-12">Your cart is empty</p>
+      <div class="text-center py-12">
+        <p class="text-muted-foreground mb-6">Your cart is empty</p>
+        <a
+          href="/collections/all"
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8"
+        >
+          Continue Shopping
+        </a>
+      </div>
     {% endif %}
   </div>
 </div>

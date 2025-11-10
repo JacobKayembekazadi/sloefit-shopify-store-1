@@ -7,10 +7,15 @@
         "heading": "Contact Us",
         "content": "<p class='text-muted-foreground text-lg text-center mb-8'>Have questions? We're here to help.</p>"
       }
+    },
+    "contact_form": {
+      "type": "contact-form",
+      "settings": {}
     }
   },
   "order": [
-    "contact_header"
+    "contact_header",
+    "contact_form"
   ]
 }
 

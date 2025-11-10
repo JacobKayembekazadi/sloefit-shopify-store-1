@@ -1,0 +1,133 @@
+<section class="py-16 px-4">
+  <div class="container mx-auto max-w-2xl">
+    <div class="p-8 rounded-lg border border-border bg-card">
+      {% form 'contact', class: 'space-y-6' %}
+        {% if form.posted_successfully? %}
+          <div class="p-4 rounded-lg bg-primary/10 border border-primary text-primary">
+            <p class="font-semibold">Thank you for contacting us! We'll get back to you soon.</p>
+          </div>
+        {% endif %}
+
+        {% if form.errors %}
+          <div class="p-4 rounded-lg bg-destructive/10 border border-destructive text-destructive">
+            <p class="font-semibold mb-2">Please correct the following errors:</p>
+            <ul class="list-disc list-inside space-y-1">
+              {% for field in form.errors %}
+                <li>{{ field | capitalize }}: {{ form.errors[field] }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+
+        <div>
+          <label for="contact-name" class="block text-sm font-medium mb-2">
+            Name <span class="text-destructive">*</span>
+          </label>
+          <input
+            type="text"
+            id="contact-name"
+            name="contact[name]"
+            required
+            class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+          >
+        </div>
+
+        <div>
+          <label for="contact-email" class="block text-sm font-medium mb-2">
+            Email <span class="text-destructive">*</span>
+          </label>
+          <input
+            type="email"
+            id="contact-email"
+            name="contact[email]"
+            required
+            class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+          >
+        </div>
+
+        <div>
+          <label for="contact-phone" class="block text-sm font-medium mb-2">
+            Phone (Optional)
+          </label>
+          <input
+            type="tel"
+            id="contact-phone"
+            name="contact[phone]"
+            class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+          >
+        </div>
+
+        <div>
+          <label for="contact-subject" class="block text-sm font-medium mb-2">
+            Subject
+          </label>
+          <select
+            id="contact-subject"
+            name="contact[subject]"
+            class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <option value="">Select a subject</option>
+            <option value="General Inquiry">General Inquiry</option>
+            <option value="Product Question">Product Question</option>
+            <option value="Shipping & Returns">Shipping & Returns</option>
+            <option value="Order Support">Order Support</option>
+            <option value="Partnership">Partnership</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="contact-message" class="block text-sm font-medium mb-2">
+            Message <span class="text-destructive">*</span>
+          </label>
+          <textarea
+            id="contact-message"
+            name="contact[body]"
+            rows="6"
+            required
+            class="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            placeholder="Tell us how we can help..."
+          >{% if form.body %}{{ form.body }}{% endif %}</textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8"
+        >
+          Send Message
+        </button>
+      {% endform %}
+    </div>
+
+    <div class="mt-12 grid md:grid-cols-2 gap-8 text-center">
+      <div class="p-6 rounded-lg border border-border bg-card">
+        <h3 class="font-bold text-lg mb-2">Email Us</h3>
+        <p class="text-muted-foreground">
+          <a href="mailto:support@sloefit.com" class="text-primary hover:underline">support@sloefit.com</a>
+        </p>
+      </div>
+      <div class="p-6 rounded-lg border border-border bg-card">
+        <h3 class="font-bold text-lg mb-2">Response Time</h3>
+        <p class="text-muted-foreground">We typically respond within 24-48 hours</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact Form",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Contact Form"
+    }
+  ]
+}
+{% endschema %}
+
+
+

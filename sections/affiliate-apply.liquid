@@ -1,0 +1,106 @@
+<section class="py-16 px-4" id="apply">
+  <div class="container mx-auto max-w-2xl">
+    <div class="p-8 rounded-lg border border-border bg-card">
+      <h2 class="text-3xl font-bold mb-6 text-center">Apply to Become an Affiliate</h2>
+      <p class="text-muted-foreground text-center mb-8">
+        Fill out the form below to apply for our affiliate program. We'll review your application and get back to you within 5-7 business days.
+      </p>
+      
+      {% form 'contact', class: 'space-y-6' %}
+        <input type="hidden" name="contact[tags]" value="affiliate-application">
+        
+        {% if form.posted_successfully? %}
+          <div class="p-4 rounded-lg bg-primary/10 border border-primary text-primary">
+            <p class="font-semibold">Thank you for your application! We'll review it and get back to you soon.</p>
+          </div>
+        {% endif %}
+
+        {% if form.errors %}
+          <div class="p-4 rounded-lg bg-destructive/10 border border-destructive text-destructive">
+            <p class="font-semibold mb-2">Please correct the following errors:</p>
+            <ul class="list-disc list-inside space-y-1">
+              {% for field in form.errors %}
+                <li>{{ field | capitalize }}: {{ form.errors[field] }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+
+        <div>
+          <label for="affiliate-name" class="block text-sm font-medium mb-2">
+            Full Name <span class="text-destructive">*</span>
+          </label>
+          <input
+            type="text"
+            id="affiliate-name"
+            name="contact[name]"
+            required
+            class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+        </div>
+
+        <div>
+          <label for="affiliate-email" class="block text-sm font-medium mb-2">
+            Email Address <span class="text-destructive">*</span>
+          </label>
+          <input
+            type="email"
+            id="affiliate-email"
+            name="contact[email]"
+            required
+            class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+        </div>
+
+        <div>
+          <label for="affiliate-website" class="block text-sm font-medium mb-2">
+            Website or Social Media Handle
+          </label>
+          <input
+            type="url"
+            id="affiliate-website"
+            name="contact[website]"
+            placeholder="https://yourwebsite.com or @yourhandle"
+            class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+        </div>
+
+        <div>
+          <label for="affiliate-audience" class="block text-sm font-medium mb-2">
+            Tell us about your audience <span class="text-destructive">*</span>
+          </label>
+          <textarea
+            id="affiliate-audience"
+            name="contact[body]"
+            rows="4"
+            required
+            placeholder="What topics do you cover? What's your audience size? Why do you want to partner with Sloe Fit?"
+            class="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8"
+        >
+          Submit Application
+        </button>
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Affiliate Application",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Affiliate Application"
+    }
+  ]
+}
+{% endschema %}
+
+
+
